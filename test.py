@@ -1,17 +1,6 @@
-cases = [] 
-i = 10
-j = 8
+def coup():
+    coord = input("Ou souhaitez vous jouer ? (Saisir les coordonnées séparer pas un \';\') ").split(";",)
+    return coord
 
-for a in range(1,i):
-    cases.append([" . "] * j)
-
-cases[3][3] = " X "
-cases[3][4] = " 0 "
-cases[4][3] = " 0 "
-cases[4][4] = " X "
-
-for a in cases:
-    for b in a:
-        print(b, end='')
-
-    print("")
+choix = coup()
+print(choix)
