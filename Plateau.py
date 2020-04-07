@@ -2,7 +2,7 @@ class Plateau:
     def __init__(self):
         super().__init__()
 
-    def affiche(tableau):
+    def affiche(self, tableau):
         #gère l'affichage du plateau 
         for a in tableau:
             for b in a:
@@ -11,7 +11,7 @@ class Plateau:
             print("")
 
 
-    def test(tableau):
+    def test(self, tableau):
         #gère la fin ou non de la partie
         compteur_X = 0
         compteur_0 = 0
@@ -24,11 +24,15 @@ class Plateau:
                     compteur_0 = compteur_0 + 1
 
         if compteur_0 == 0 and compteur_X > 0:
-            print("X à gagné !")
+            print("")
+            print("")
+            print("------------------------------------------- X à gagné ! ---------------------------------------------------")
             return 1
 
         elif compteur_0 > 0 and compteur_X == 0:
-            print("0 à gagné !")
+            print("")
+            print("")
+            print("------------------------------------------- 0 à gagné ! ----------------------------------------------------")
             return 1
             
         else:

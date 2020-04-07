@@ -3,20 +3,25 @@ from Partie import*
 
 
 def main():
-    tab = Partie.initialisation()
+    p = Partie()
+    pl = Plateau()
+    p.tab = p.initialisation()
 
-    while Plateau.test(tab) == 0:
-        Plateau.affiche(tab)
-        choix_menu = Partie.menu()
+    while pl.test(p.tab) == 0:
+        pl.affiche(p.tab)
+        choix_menu = p.menu()
         
         if choix_menu == 1 or choix_menu == 2:
-            a = Partie.coup()
+            a = p.coup()
 
-            if Partie.validite(a, tab) == 0:
-                Partie.ajout_pion(a, tab, choix_menu)
+            if p.validite(a, p.tab) == 0:
+                p.ajout_pion(a, p.tab, choix_menu)
+                p.inversement(p.tab, a, choix_menu)
 
             else:
                 print("Cette emplacement est déjà pris !")
+
+    pl.affiche(p.tab)
 
 
 main()
