@@ -41,11 +41,11 @@ class Partie:
     def ajout_pion(self, coup, tableau, pion):
         if pion == 1:
             tableau[int(coup[1]) - 1][int(coup[0]) - 1] = " X "
-            tab = tableau
+            self.tab = tableau
 
         if pion == 2:
             tableau[int(coup[1]) - 1][int(coup[0]) - 1] = " 0 "
-            tab = tableau
+            self.tab = tableau
 
 
 

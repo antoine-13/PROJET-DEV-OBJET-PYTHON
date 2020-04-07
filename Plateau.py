@@ -4,11 +4,19 @@ class Plateau:
 
     def affiche(self, tableau):
         #gère l'affichage du plateau 
+        print("")
+        print("   | 01 02 03 04 05 06 07 08") 
+        print("_____________________________")
+        i = 1
         for a in tableau:
+            print("0", i, " ", end='|', sep='')
             for b in a:
                 print(b, end='')
 
             print("")
+            i += 1
+
+        print("")
 
 
     def test(self, tableau):
