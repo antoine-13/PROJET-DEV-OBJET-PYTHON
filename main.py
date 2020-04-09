@@ -5,23 +5,35 @@ from Partie import*
 def main():
     p = Partie()
     pl = Plateau()
-    p.tab = p.initialisation()
+
+    dimenssion = p.taille()
+    p.tab = pl.initialisation(dimenssion)
+    tour = 0
+
+
 
     while pl.test(p.tab) == 0:
-        pl.affiche(p.tab)
-        choix_menu = p.menu()
-        
-        if choix_menu == 1 or choix_menu == 2:
-            a = p.coup()
+        tour += 1
+        pl.affiche(p.tab, dimenssion)
 
-            if p.validite(a, p.tab) == 0:
-                p.ajout_pion(a, p.tab, choix_menu)
-                p.inversement(p.tab, a, choix_menu)
+        type_pion = tour % 2
 
-            else:
-                print("Cette emplacement est déjà pris !")
+        if type_pion == 1:
+            print("C'est à X de jouer ! (", tour, " tours) ")
 
-    pl.affiche(p.tab)
+        elif type_pion == 0:
+            print("C'est à 0 de jouer ! (", tour, " tours) ")
+    
+        a = p.coup()
+
+        if p.validite(a, p.tab) == 0:
+            p.ajout_pion(a, p.tab, type_pion)
+            p.inversement(p.tab, a, type_pion)
+
+        else:
+            print("Cette emplacement est déjà pris !")
+
+    pl.affiche(p.tab,dimenssion)
 
 
 main()

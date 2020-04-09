@@ -3,26 +3,19 @@ class Partie:
         super().__init__()
         self.tab = None 
 
-    
-    def initialisation(self):
-        #création du tableau
-        cases = [] 
-        i = 9
-        j = 8
+    def taille(self):
+        test_taille = 0
 
-        for a in range(1,i):
-            cases.append([" . "] * j)
+        while test_taille == 0:
+            user_taille = input('Quel taille de plateau souhaitez vous ? (entrez la taille de la forme longeur*largeur, avec un max de 20 et un min de 8)').split("*",)
 
-        cases[3][3] = " X "
-        cases[3][4] = " 0 "
-        cases[4][3] = " 0 "
-        cases[4][4] = " X "
+            if int(user_taille[0]) > 20 or int(user_taille[1]) > 20 or int(user_taille[0]) < 8 or int(user_taille[1]) < 8:
+                test_taille = 0
+            else:
+                test_taille = 1
 
-        return cases
+        return user_taille
 
-    def menu(self):
-        valeur = int(input("Que souhaitez vous faire ? ( 1- poser un pion X; 2-poser un pion 0; 3- passer votre tour)"))
-        return valeur
 
     def coup(self):
         coord = input("Ou souhaitez vous jouer ? (Saisir les coordonnées séparer pas un \';\') ").split(";",)
@@ -30,34 +23,38 @@ class Partie:
     
     
     def validite(self,coup, tableau):
-        cl = int(coup[0]) - 1
-        lg = int(coup[1]) - 1
+        #récupération des coordonées ou le joueur souhaite poser son pion 
+        cl = int(coup[0])
+        lg = int(coup[1])
+
+        #vérification si la case est déjà prise par un autre pion
         if tableau[lg][cl] == " X " or tableau[lg][cl] == " 0 ":
             return 1
-
         else:
             return 0
 
+        
+
     def ajout_pion(self, coup, tableau, pion):
         if pion == 1:
-            tableau[int(coup[1]) - 1][int(coup[0]) - 1] = " X "
+            tableau[int(coup[1])][int(coup[0])] = " X "
             self.tab = tableau
 
-        if pion == 2:
-            tableau[int(coup[1]) - 1][int(coup[0]) - 1] = " 0 "
+        if pion == 0:
+            tableau[int(coup[1])][int(coup[0])] = " 0 "
             self.tab = tableau
 
 
 
     def inversement(self, tableau, coup, pion):
-        cl = int(coup[0]) - 1
-        lg = int(coup[1]) - 1
+        cl = int(coup[0])
+        lg = int(coup[1])
 
         if pion == 1:
             a = " X "
             b = " 0 "
 
-        if pion == 2:
+        elif pion == 0:
             a = " 0 "
             b = " X "
 
@@ -65,41 +62,49 @@ class Partie:
         if tableau[lg][cl] == a:                          #droite du pion joué
             if tableau[lg][cl + 1] == b:
                 ncl = cl + 1
+                
                 while tableau[lg][ncl] == b:
                     ncl += 1
                     if tableau[lg][ncl] == a:
                         ncl = cl + 1
                         while tableau[lg][ncl] == b:
                             tableau[lg][ncl] = a
+                            ncl += 1
 
             
             if tableau[lg][cl - 1] == b:                     #gauche du pion joué            
                 ncl = cl - 1
+                
                 while tableau[lg][ncl] == b:
                     ncl -= 1
                     if tableau[lg][ncl] == a:
                         ncl = cl - 1
                         while tableau[lg][ncl] == b:
                             tableau[lg][ncl] = a
+                            ncl -= 1
             
 
-            if tableau[lg + 1][cl] == b:        #En haut du pion joué 
+            if tableau[lg + 1][cl] == b:        #En bas du pion joué 
                 nlg = lg + 1
+                
                 while tableau[nlg][cl] == b:
                     nlg += 1
                     if tableau[nlg][cl] == a:
                         nlg = lg + 1
                         while tableau[nlg][cl] == b:
                             tableau[nlg][cl] = a
+                            nlg += 1
 
-            if tableau[lg - 1][cl] == b:            #En bas du pion joué 
+            if tableau[lg - 1][cl] == b:            #En haut du pion joué 
                 nlg = lg - 1
+                print("TEST")
                 while tableau[nlg][cl] == b:
                     nlg -= 1
                     if tableau[nlg][cl] == a:
                         nlg = lg - 1
                         while tableau[nlg][cl] == b:
                             tableau[nlg][cl] = a
+                            nlg -= 1
 
             if tableau[lg + 1][cl + 1] == b:            #En bas à droite du pion joué 
                 nlg = lg + 1
@@ -112,6 +117,8 @@ class Partie:
                         ncl = cl + 1
                         while tableau[nlg][ncl] == b:
                             tableau[nlg][ncl] = a
+                            nlg += 1
+                            ncl += 1
 
             if tableau[lg - 1][cl - 1] == b:            #En haut à gauche du pion joué 
                 nlg = lg - 1
@@ -124,6 +131,8 @@ class Partie:
                         ncl = cl - 1
                         while tableau[nlg][ncl] == b:
                             tableau[nlg][ncl] = a
+                            nlg -= 1
+                            ncl -= 1
 
             if tableau[lg - 1][cl + 1] == b:            #En haut à droite auche du pion joué 
                 nlg = lg - 1
@@ -136,6 +145,8 @@ class Partie:
                         ncl = cl + 1
                         while tableau[nlg][ncl] == b:
                             tableau[nlg][ncl] = a
+                            nlg -= 1
+                            ncl += 1
             
             if tableau[lg + 1][cl - 1] == b:            #En bas à gauche auche du pion joué 
                 nlg = lg + 1
@@ -148,6 +159,8 @@ class Partie:
                         ncl = cl - 1
                         while tableau[nlg][ncl] == b:
                             tableau[nlg][ncl] = a
+                            nlg += 1
+                            ncl -= 1
                 
 
     

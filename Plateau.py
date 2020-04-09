@@ -1,20 +1,59 @@
 class Plateau:
     def __init__(self):
         super().__init__()
+        
+    
+    def initialisation(self, dimenssion):
+        #création du tableau
+        cases = [] 
+        i = int(dimenssion[1])
+        j = int(dimenssion[0])
 
-    def affiche(self, tableau):
+        for a in range(0,i+2):
+            cases.append([" . "] * (j+2))
+
+        cases[int(int(dimenssion[1])/2)][int(int(dimenssion[0])/2)] = " 0 "
+        cases[int(int(dimenssion[1])/2)][int((int(dimenssion[0])/2) + 1)] = " X "
+        cases[int((int(dimenssion[1])/2 + 1))][int(int(dimenssion[0])/2)] = " X "
+        cases[int((int(dimenssion[1])/2) + 1)][int((int(dimenssion[0])/2) + 1)] = " 0 "
+
+        return cases
+
+    def affiche(self, tableau, dimenssion):
         #gère l'affichage du plateau 
-        print("")
-        print("   | 01 02 03 04 05 06 07 08") 
-        print("_____________________________")
-        i = 1
-        for a in tableau:
-            print("0", i, " ", end='|', sep='')
-            for b in a:
-                print(b, end='')
 
-            print("")
+        #affiche les chiffres des collonnes
+        print("")
+        print("   | ", end="")
+        for a in range(1, int(dimenssion[0]) + 1):
+            if a < 10:
+                print("0", a, " ", sep='', end='')
+            else:
+                print(a, " ", sep='', end = '')
+        print("")
+
+        print("---", "---" * int(dimenssion[0]), "--", sep="" )
+      
+            
+        i = 0
+        
+        for a in tableau:
+            if i >= 1 and i <= int(dimenssion[0]):
+                if i < 10:
+                    print("0", i, " ", end='|', sep='')
+                else:
+                    print(i, " ", end='|', sep='')
+                
+                compteur_cl = 0
+                for b in a:
+                    if compteur_cl >= 1 and compteur_cl <= int(dimenssion[1]):
+                        print(b, end='')
+
+                    compteur_cl += 1
+
+                print("")
             i += 1
+            
 
         print("")
 
