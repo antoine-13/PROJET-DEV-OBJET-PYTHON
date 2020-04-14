@@ -3,10 +3,10 @@ class menu:
         super().__init__()
 
     def affichage_main_menu(self):
-        print("1-lancer une partie")
+        print("1-Lancer une partie")
         print("2-Changer la taille du plateau (default : 8*8)")
         print("3-Changer le nombre de joueurs (default : 2)")
-        print("4-Règlees de jeu")
+        print("4-Règles de jeu")
 
     def user_choix(self):
         choix = int(input("Que souhaitez vous faire : "))

@@ -14,6 +14,7 @@ class Plateau:
         cases = [] 
         i = int(self.dimenssion[1])
         j = int(self.dimenssion[0])
+        
 
         for a in range(0,i+2):
             cases.append([" . "] * (j+2))
@@ -25,13 +26,20 @@ class Plateau:
             cases[int((int(self.dimenssion[1])/2) + 1)][int((int(self.dimenssion[0])/2) + 1)] = " 0 "
         if nbr_joueurs == 3:
             cases[int(int(self.dimenssion[1])/2)][int(int(self.dimenssion[0])/2)] = " Y "
+            cases[int(int(self.dimenssion[1])/2) + 1][int(int(self.dimenssion[0])/2) + 1] = " Y "
             cases[int(int(self.dimenssion[1])/2)][int((int(self.dimenssion[0])/2) + 1)] = " 0 "
+            cases[int(int(self.dimenssion[1])/2) + 1][int((int(self.dimenssion[0])/2) + 2)] = " 0 "
             cases[int((int(self.dimenssion[1])/2 + 1))][int(int(self.dimenssion[0])/2)] = " X "
+            cases[int((int(self.dimenssion[1])/2))][int(int(self.dimenssion[0])/2) + 2] = " X "
         if nbr_joueurs == 4:
             cases[int(int(self.dimenssion[1])/2)][int(int(self.dimenssion[0])/2)] = " Y "
+            cases[int(int(self.dimenssion[1])/2) + 1][int(int(self.dimenssion[0])/2) + 2] = " Y "
             cases[int(int(self.dimenssion[1])/2)][int((int(self.dimenssion[0])/2) + 1)] = " 0 "
+            cases[int(int(self.dimenssion[1])/2) + 1][int((int(self.dimenssion[0])/2) - 1)] = " 0 "
             cases[int((int(self.dimenssion[1])/2 + 1))][int(int(self.dimenssion[0])/2)] = " X "
+            cases[int((int(self.dimenssion[1])/2))][int(int(self.dimenssion[0])/2) + 2] = " X "
             cases[int((int(self.dimenssion[1])/2) + 1)][int((int(self.dimenssion[0])/2) + 1)] = " U "
+            cases[int((int(self.dimenssion[1])/2))][int((int(self.dimenssion[0])/2) - 1)] = " U "
 
         return cases
 
@@ -54,18 +62,18 @@ class Plateau:
         i = 0
         
         for a in tableau:
-            if i >= 1 and i <= int(dimenssion[0]):
+            if i >= 1 and i <= int(dimenssion[1]):
                 if i < 10:
                     print("0", i, " ", end='|', sep='')
                 else:
                     print(i, " ", end='|', sep='')
                 
-                compteur_cl = 0
+                compteur_lg = 0
                 for b in a:
-                    if compteur_cl >= 1 and compteur_cl <= int(dimenssion[1]):
+                    if compteur_lg >= 1 and compteur_lg <= int(dimenssion[0]):
                         print(b, end='')
 
-                    compteur_cl += 1
+                    compteur_lg += 1
 
                 print("")
             i += 1

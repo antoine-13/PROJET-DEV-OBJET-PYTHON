@@ -55,67 +55,70 @@ class Partie:
         cl = int(coup[0])
         lg = int(coup[1])
         a = self.joueurs_du_tour[0]
+        b = self.non_joueurs[0]
+        c = self.non_joueurs[1]
+        d = self.non_joueurs[2]
 
         for b in self.non_joueurs:                       
-            if tableau[lg][cl + 1] == b:  #droite du pion joué
+            if tableau[lg][cl + 1] == b or tableau[lg][cl + 1] == c or tableau[lg][cl + 1] == d:  #droite du pion joué
                 ncl = cl + 1
-                while tableau[lg][ncl] == b:
+                while tableau[lg][ncl] == b or tableau[lg][ncl] == c or tableau[lg][ncl] == d:
                     ncl += 1
                 if tableau[lg][ncl] == a:
                     return 1
 
-            if tableau[lg][cl - 1] == b:  #gauche du pion joué
+            if tableau[lg][cl - 1] == b or tableau[lg][cl - 1] == c or tableau[lg][cl - 1] == d:  #gauche du pion joué
                 ncl = cl - 1
-                while tableau[lg][ncl] == b:
+                while tableau[lg][ncl] == b or tableau[lg][ncl] == c or tableau[lg][ncl] == d:
                     ncl -= 1
                 if tableau[lg][ncl] == a:
                     return 1
 
-            if tableau[lg - 1 ][cl] == b:  #en haut du pion joué
+            if tableau[lg - 1][cl] == b or tableau[lg - 1][cl] == c or tableau[lg - 1][cl] == d:  #en haut du pion joué
                 nlg = lg - 1
-                while tableau[nlg][cl] == b:
+                while tableau[nlg][cl] == b or tableau[nlg][cl] == c or tableau[nlg][cl] == d:
                     nlg -= 1
                 if tableau[nlg][cl] == a:
                     return 1
             
-            if tableau[lg + 1 ][cl] == b:  #en bas du pion joué
+            if tableau[lg + 1][cl] == b or tableau[lg + 1][cl] == c or tableau[lg + 1][cl] == d:  #en bas du pion joué
                 nlg = lg + 1
-                while tableau[nlg][cl] == b:
+                while tableau[nlg][cl] == b or tableau[nlg][cl] == c or tableau[nlg][cl] == d:
                     nlg += 1
                 if tableau[nlg][cl] == a:
                     return 1
 
-            if tableau[lg + 1 ][cl + 1] == b:  #en bas a droite du pion joué
+            if tableau[lg + 1][cl + 1] == b or tableau[lg + 1][cl + 1] == c or tableau[lg + 1][cl + 1] == d:  #en bas a droite du pion joué
                 nlg = lg + 1
                 ncl = cl + 1
-                while tableau[nlg][ncl] == b:
+                while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
                     nlg += 1
                     ncl += 1
                 if tableau[nlg][ncl] == a:
                     return 1
 
-            if tableau[lg + 1 ][cl - 1] == b:  #en bas a gauche du pion joué
+            if tableau[lg + 1][cl - 1] == b or tableau[lg + 1][cl - 1] == c or tableau[lg + 1][cl - 1] == d:  #en bas a gauche du pion joué
                 nlg = lg + 1
                 ncl = cl - 1
-                while tableau[nlg][ncl] == b:
+                while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
                     nlg += 1
                     ncl -= 1
                 if tableau[nlg][ncl] == a:
                     return 1
 
-            if tableau[lg - 1 ][cl - 1] == b:  #en haut a gauche du pion joué
+            if tableau[lg - 1][cl - 1] == b or tableau[lg - 1][cl - 1] == c or tableau[lg - 1][cl - 1] == d:  #en haut a gauche du pion joué
                 nlg = lg - 1
                 ncl = cl - 1
-                while tableau[nlg][ncl] == b:
+                while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
                     nlg -= 1
                     ncl -= 1
                 if tableau[nlg][ncl] == a:
                     return 1
 
-            if tableau[lg - 1 ][cl + 1] == b:  #en haut a gauche du pion joué
+            if tableau[lg - 1][cl + 1] == b or tableau[lg - 1][cl + 1] == c or tableau[lg - 1][cl + 1] == d:  #en haut a gauche du pion joué
                 nlg = lg - 1
                 ncl = cl + 1
-                while tableau[nlg][ncl] == b:
+                while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
                     nlg -= 1
                     ncl += 1
                 if tableau[nlg][ncl] == a:
@@ -137,110 +140,140 @@ class Partie:
         cl = int(coup[0])
         lg = int(coup[1])
         a = self.joueurs_du_tour[0]
+        b = self.non_joueurs[0]
+        c = self.non_joueurs[1]
+        d = self.non_joueurs[2]
+        
+        if tableau[lg][cl] == a:                          #droite du pion joué
+            if tableau[lg][cl + 1] == b or tableau[lg][cl + 1] == c or tableau[lg][cl + 1] == d:
+                ncl = cl + 1
+                while tableau[lg][ncl] == b or tableau[lg][ncl] == c or tableau[lg][ncl] == d:
+                    ncl += 1
+                    if tableau[lg][ncl] == a:
+                        ncl = cl + 1
+                        while tableau[lg][ncl] == b or tableau[lg][ncl] == c or tableau[lg][ncl] == d:
+                            tableau[lg][ncl] = a
+                            pion = [1] * 2
+                            pion[0] = ncl
+                            pion[1] = lg
+                            self.inversement(tableau, pion)
+                            ncl += 1
 
-        for b in self. non_joueurs:
-            if tableau[lg][cl] == a:                          #droite du pion joué
-                if tableau[lg][cl + 1] == b:
-                    ncl = cl + 1
-                    
-                    while tableau[lg][ncl] == b:
-                        ncl += 1
-                        if tableau[lg][ncl] == a:
-                            ncl = cl + 1
-                            while tableau[lg][ncl] == b:
-                                tableau[lg][ncl] = a
-                                ncl += 1
+            
+            if tableau[lg][cl - 1] == b or tableau[lg][cl - 1] == c or tableau[lg][cl - 1] == d:                     #gauche du pion joué            
+                ncl = cl - 1
+                while tableau[lg][ncl] == b or tableau[lg][ncl] == c or tableau[lg][ncl] == d:
+                    ncl -= 1
+                    if tableau[lg][ncl] == a:
+                        ncl = cl - 1
+                        while tableau[lg][ncl] == b or tableau[lg][ncl] == c or tableau[lg][ncl] == d:
+                            tableau[lg][ncl] = a
+                            pion = [1] * 2
+                            pion[0] = ncl
+                            pion[1] = lg
+                            self.inversement(tableau, pion)
+                            ncl -= 1
+            
 
+            if tableau[lg + 1][cl] == b or tableau[lg + 1][cl] == c or tableau[lg + 1][cl] == d:        #En bas du pion joué 
+                nlg = lg + 1
                 
-                if tableau[lg][cl - 1] == b:                     #gauche du pion joué            
-                    ncl = cl - 1
-                    
-                    while tableau[lg][ncl] == b:
-                        ncl -= 1
-                        if tableau[lg][ncl] == a:
-                            ncl = cl - 1
-                            while tableau[lg][ncl] == b:
-                                tableau[lg][ncl] = a
-                                ncl -= 1
-                
+                while tableau[nlg][cl] == b or tableau[nlg][cl] == c or tableau[nlg][cl] == d:
+                    nlg += 1
+                    if tableau[nlg][cl] == a:
+                        nlg = lg + 1
+                        while tableau[nlg][cl] == b or tableau[nlg][cl] == c or tableau[nlg][cl] == d:
+                            tableau[nlg][cl] = a
+                            pion = [1] * 2
+                            pion[0] = cl
+                            pion[1] = nlg
+                            self.inversement(tableau, pion)
+                            nlg += 1
 
-                if tableau[lg + 1][cl] == b:        #En bas du pion joué 
-                    nlg = lg + 1
-                    
-                    while tableau[nlg][cl] == b:
-                        nlg += 1
-                        if tableau[nlg][cl] == a:
-                            nlg = lg + 1
-                            while tableau[nlg][cl] == b:
-                                tableau[nlg][cl] = a
-                                nlg += 1
+            if tableau[lg - 1][cl] == b or tableau[lg - 1][cl] == c or tableau[lg - 1][cl] == d:            #En haut du pion joué 
+                nlg = lg - 1
+                while tableau[nlg][cl] == b or tableau[nlg][cl] == c or tableau[nlg][cl] == d:
+                    nlg -= 1
+                    if tableau[nlg][cl] == a:
+                        nlg = lg - 1
+                        while tableau[nlg][cl] == b or tableau[nlg][cl] == c or tableau[nlg][cl] == d:
+                            tableau[nlg][cl] = a
+                            pion = [1] * 2
+                            pion[0] = cl
+                            pion[1] = nlg
+                            self.inversement(tableau, pion)
+                            nlg -= 1
 
-                if tableau[lg - 1][cl] == b:            #En haut du pion joué 
-                    nlg = lg - 1
-                    print("TEST")
-                    while tableau[nlg][cl] == b:
-                        nlg -= 1
-                        if tableau[nlg][cl] == a:
-                            nlg = lg - 1
-                            while tableau[nlg][cl] == b:
-                                tableau[nlg][cl] = a
-                                nlg -= 1
+            if tableau[lg + 1][cl + 1] == b or tableau[lg + 1][cl + 1] == c or tableau[lg + 1][cl + 1] == d:            #En bas à droite du pion joué 
+                nlg = lg + 1
+                ncl = cl + 1
+                while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
+                    nlg += 1
+                    ncl += 1
+                    if tableau[nlg][ncl] == a:
+                        nlg = lg + 1
+                        ncl = cl + 1
+                        while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
+                            tableau[nlg][ncl] = a
+                            pion = [1] * 2
+                            pion[0] = ncl
+                            pion[1] = nlg
+                            self.inversement(tableau, pion)
+                            nlg += 1
+                            ncl += 1
 
-                if tableau[lg + 1][cl + 1] == b:            #En bas à droite du pion joué 
-                    nlg = lg + 1
-                    ncl = cl + 1
-                    while tableau[nlg][ncl] == b:
-                        nlg += 1
-                        ncl += 1
-                        if tableau[nlg][ncl] == a:
-                            nlg = lg + 1
-                            ncl = cl + 1
-                            while tableau[nlg][ncl] == b:
-                                tableau[nlg][ncl] = a
-                                nlg += 1
-                                ncl += 1
+            if tableau[lg - 1][cl - 1] == b or tableau[lg - 1][cl - 1] == c or tableau[lg - 1][cl - 1] == d:            #En haut à gauche du pion joué 
+                nlg = lg - 1
+                ncl = cl - 1
+                while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
+                    nlg -= 1
+                    ncl -= 1
+                    if tableau[nlg][ncl] == a:
+                        nlg = lg - 1
+                        ncl = cl - 1
+                        while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
+                            tableau[nlg][ncl] = a
+                            pion = [1] * 2
+                            pion[0] = ncl
+                            pion[1] = nlg
+                            self.inversement(tableau, pion)
+                            nlg -= 1
+                            ncl -= 1
 
-                if tableau[lg - 1][cl - 1] == b:            #En haut à gauche du pion joué 
-                    nlg = lg - 1
-                    ncl = cl - 1
-                    while tableau[nlg][ncl] == b:
-                        nlg -= 1
-                        ncl -= 1
-                        if tableau[nlg][ncl] == a:
-                            nlg = lg - 1
-                            ncl = cl - 1
-                            while tableau[nlg][ncl] == b:
-                                tableau[nlg][ncl] = a
-                                nlg -= 1
-                                ncl -= 1
-
-                if tableau[lg - 1][cl + 1] == b:            #En haut à droite auche du pion joué 
-                    nlg = lg - 1
-                    ncl = cl + 1
-                    while tableau[nlg][ncl] == b:
-                        nlg -= 1
-                        ncl += 1
-                        if tableau[nlg][ncl] == a:
-                            nlg = lg - 1
-                            ncl = cl + 1
-                            while tableau[nlg][ncl] == b:
-                                tableau[nlg][ncl] = a
-                                nlg -= 1
-                                ncl += 1
-                
-                if tableau[lg + 1][cl - 1] == b:            #En bas à gauche auche du pion joué 
-                    nlg = lg + 1
-                    ncl = cl - 1
-                    while tableau[nlg][ncl] == b:
-                        nlg += 1
-                        ncl -= 1
-                        if tableau[nlg][ncl] == a:
-                            nlg = lg + 1
-                            ncl = cl - 1
-                            while tableau[nlg][ncl] == b:
-                                tableau[nlg][ncl] = a
-                                nlg += 1
-                                ncl -= 1
+            if tableau[lg - 1][cl + 1] == b or tableau[lg - 1][cl + 1] == c or tableau[lg - 1][cl + 1] == d:            #En haut à droite auche du pion joué 
+                nlg = lg - 1
+                ncl = cl + 1
+                while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
+                    ncl += 1
+                    if tableau[nlg][ncl] == a:
+                        nlg = lg - 1
+                        ncl = cl + 1
+                        while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
+                            tableau[nlg][ncl] = a
+                            pion = [1] * 2
+                            pion[0] = ncl
+                            pion[1] = nlg
+                            self.inversement(tableau, pion)
+                            nlg -= 1
+                            ncl += 1
+            
+            if tableau[lg + 1][cl - 1] == b or tableau[lg + 1][cl - 1] == c or tableau[lg + 1][cl - 1] == d:            #En bas à gauche auche du pion joué 
+                nlg = lg + 1
+                ncl = cl - 1
+                while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
+                    nlg += 1
+                    ncl -= 1
+                    if tableau[nlg][ncl] == a:
+                        nlg = lg + 1
+                        ncl = cl - 1
+                        while tableau[nlg][ncl] == b or tableau[nlg][ncl] == c or tableau[nlg][ncl] == d:
+                            tableau[nlg][ncl] = a
+                            pion = [1] * 2
+                            pion[0] = ncl
+                            pion[1] = nlg
+                            self.inversement(tableau, pion)
+                            nlg += 1
+                            ncl -= 1
                 
 
     
