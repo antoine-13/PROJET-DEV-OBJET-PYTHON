@@ -50,20 +50,20 @@ def main():
             pl.affiche(p.tab, pl.dimenssion)                    #On affiche le plateau de jeu
             print("C'est à", p.joueurs_du_tour[0], "de jouer !")            #On affiche le nom du joueur qui doit jouer
             a = p.coup()                                                    #On lui demande ou il veux jouer 
-        
-        
-            if p.validite_case(a, p.tab) == 0:                      #Si la case est vide
-                possibilite, valid_dir_lg, valid_dir_cl = p.validite_pos(a, p.tab)          #On récupère les variables de la methode validite_pos           
-                if possibilite >= 1:                                                        #Si on a au moins une possibilité de retourner un ou plusieurs pions
-                    p.ajout_pion(a, p.tab)                                                  #On ajoute son pion
-                    p.inversement(p.tab, a, valid_dir_lg, valid_dir_cl)                     #On retourne les pions encadrés 
-                    p.tour += 1                                                             #On passe au tour suivant 
+            if a[0] != "":                                                  #Si l'utilisateur rentre autre chose que entrer(qui sert a sauté le tour)
+                if p.validite_case(a, p.tab) == 0:                      #Si la case est vide
+                    possibilite, valid_dir_lg, valid_dir_cl = p.validite_pos(a, p.tab)          #On récupère les variables de la methode validite_pos           
+                    if possibilite >= 1:                                                        #Si on a au moins une possibilité de retourner un ou plusieurs pions
+                        p.ajout_pion(a, p.tab)                                                  #On ajoute son pion
+                        p.inversement(p.tab, a, valid_dir_lg, valid_dir_cl)                     #On retourne les pions encadrés 
+                        p.tour += 1                                                             #On passe au tour suivant 
+                    else:                                                   #Sinon
+                        print("Merci de choisir un emplacement correct")        #On lui demande de choisir une position correcte
+
                 else:                                                   #Sinon
-                    print("Merci de choisir un emplacement correct")        #On lui demande de choisir une position correcte
-
-            else:                                                   #Sinon
-                print("Cette emplacement est déjà pris !")              #On lui dis que la case est deja occupé
-
+                    print("Cette emplacement est déjà pris !")              #On lui dis que la case est deja occupé
+            else:
+                p.tour += 1                                 #Sinon on saute son tour
         else:                                           #Sinon on saute son tour 
             p.tour +=1
             

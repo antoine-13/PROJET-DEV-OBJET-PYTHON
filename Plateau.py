@@ -32,8 +32,8 @@ class Plateau:
         j = int(self.dimenssion[0])
         
 
-        for a in range(0,i+2):
-            cases.append([" . "] * (j+2))
+        for a in range(0,i+2):          #On crée un tabelau plus grand de 2 lignes pour pouvoir vérifier la position des pions posé en bordure haute et basse
+            cases.append([" . "] * (j+2))        #On crée un tabelau plus grand de 2 collones pour pouvoir vérifier la position des pions posé en bordure droite et gauche
 
         
         if nbr_joueurs == 2: #si il y a 2  joueurs
