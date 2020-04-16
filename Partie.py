@@ -68,16 +68,25 @@ class Partie:
         #récupération des coordonées ou le joueur souhaite poser son pion 
         cl = int(coup[0])
         lg = int(coup[1])
+
+        #On initialise la variable possibilité a 0
         possibilite = 0
+
+        #On crée deux tableau dans lequel on rentre toute les directions possibles dans les collones et lignes
         lg_add = [0, -1, +1]
         cl_add = [0, -1, +1]
+
+        #On initialise deux tableaux dans lesquels on va stocker les directions valables dans lesquels
+        #on pourra encadrer au moins un pion
         valid_dir_lg = []
         valid_dir_cl = []
 
-        #On vérifie si dans toute les direction la case à coté contient un pion autre que celui qui joue
+        #On vérifie dans toute les directions en parcourant le tableau des directions des lignes, et collones
+        #En fonction de la direction on verifie la case à coté contient un pion autre que celui qui joue
         #Si c'est le cas on continue dans la meme direction tant que le pion est différent de celui qui joue
-        # Si on fini par croiser un pion correspondant à celui qui joue
-        #On renvoi 1 pour dire que le coup est valable vue qu'il encadre bien d'autres pions 
+        #Si on fini par croiser un pion correspondant à celui qui joue
+        #On stoke dans le tableau des directions valide la direction dans laquels ont a chercher
+        #On ajoute 1 a possibilité pour dire qu'il existe au moins une possibilité de retourner un pion minimum
         
         for a in lg_add:  
             for b in cl_add:                
@@ -93,7 +102,7 @@ class Partie:
                             possibilite += 1
                             
                         
-        return possibilite, valid_dir_lg, valid_dir_cl
+        return possibilite, valid_dir_lg, valid_dir_cl    #On retourne le nombre de possibilitées, et les tableaux contenant les directions valide des collones et lignes 
             
                                                             
         
@@ -104,30 +113,25 @@ class Partie:
 
 
 
-
+    #Methode inversement qui retourne les pions encadrés
     def inversement(self, tableau, coup, dir_lg, dir_cl):
         #récupération des coordonnées du coup
         cl = int(coup[0])
         lg = int(coup[1])
 
-        
-
-
-        #On vérifie si dans toute les direction la case à coté contient un pion autre que celui qui joue
-        #Si c'est le cas on continue dans la meme direction tant que le pion est différent de celui qui joue
-        # Si on fini par croiser un pion correspondant à celui qui joue
-        #On renvoi 1 pour dire que le coup est valable vue qu'il encadre bien d'autres pions 
+        #Pour toute les index du tableau
         for i in range (0, len(dir_cl)):
-            nlg = lg + dir_lg[i]
-            ncl = cl + dir_cl[i]
-            while tableau[nlg][ncl] in self.non_joueurs:
-                pion = [1] * 2
-                pion[0] = ncl
-                pion[1] = nlg
-                self.ajout_pion(pion, tableau)
-                possibilite, valid_dir_lg, valid_dir_cl = self.validite_pos(pion, tableau)
-                self.inversement(tableau, pion, valid_dir_lg, valid_dir_cl)
-                nlg += dir_lg[i]
+            nlg = lg + dir_lg[i]                                #On initialise la variable nlg en ajoutant la direction dans laquel on veux aller en ligne
+            ncl = cl + dir_cl[i]                                #On initialise la variable ncl en ajoutant la direction dans laquel on veux aller en collone
+            while tableau[nlg][ncl] in self.non_joueurs:            #Tant que la case du tableau contient un pion qui ne joue pas
+                pion = [1] * 2                                          #On initialise un tableau pion
+                pion[0] = ncl                                           #On stocke la valeur de sa collone
+                pion[1] = nlg                                           #On stocke la valeur de sa ligne
+                self.ajout_pion(pion, tableau)                          #On ajoute un pion à cette position
+                possibilite, valid_dir_lg, valid_dir_cl = self.validite_pos(pion, tableau)          #On vérifie si ce pion retourner n'encadre pas d'autres pions
+                if possibilite >= 1:                                                                #Si on à au moins une possibilité de retournement à partir de se nouveau pion
+                    self.inversement(tableau, pion, valid_dir_lg, valid_dir_cl)                     #On rappelle la meme methode pour qu'elle retourne les pions encadrer
+                nlg += dir_lg[i]                                                   #On ajoute les directions pour regarder la case à coter dans la direction souhaitez
                 ncl += dir_cl[i]
 
             

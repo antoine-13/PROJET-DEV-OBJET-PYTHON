@@ -53,11 +53,11 @@ def main():
         
         
             if p.validite_case(a, p.tab) == 0:                      #Si la case est vide
-                possibilite, valid_dir_lg, valid_dir_cl = p.validite_pos(a, p.tab)                    
-                if possibilite >= 1:                       #Si le coup est valide (qu'il retourne bien un pion adverse)
-                    p.ajout_pion(a, p.tab)                                  #On ajoute son pion
-                    p.inversement(p.tab, a, valid_dir_lg, valid_dir_cl)                                 #On retourne les pions encadrés 
-                    p.tour += 1                                             #On passe au tour suivant 
+                possibilite, valid_dir_lg, valid_dir_cl = p.validite_pos(a, p.tab)          #On récupère les variables de la methode validite_pos           
+                if possibilite >= 1:                                                        #Si on a au moins une possibilité de retourner un ou plusieurs pions
+                    p.ajout_pion(a, p.tab)                                                  #On ajoute son pion
+                    p.inversement(p.tab, a, valid_dir_lg, valid_dir_cl)                     #On retourne les pions encadrés 
+                    p.tour += 1                                                             #On passe au tour suivant 
                 else:                                                   #Sinon
                     print("Merci de choisir un emplacement correct")        #On lui demande de choisir une position correcte
 
